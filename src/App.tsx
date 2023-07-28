@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import ItemsList from './components/ItemsList.tsx'
 import { LaunchDetailed, LaunchBrief } from './types'
 import './App.css'
 import LaunchDetails from './components/LaunchDetails.tsx';
-// import castData from './components/CastData.ts';
 
 function App() {
 
