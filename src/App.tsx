@@ -16,7 +16,6 @@ function App() {
       localStorage.setItem("selectedLaunchId", launchId as string);
       setSelectedLaunchId(launchId);
   }
-  
 
   const getSpaceXResults = () => {
     fetch('https://api.spacexdata.com/v5/launches/')
