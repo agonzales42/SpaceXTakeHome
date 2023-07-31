@@ -8,7 +8,7 @@ function App() {
 
   const [launchesDetailed, setLaunchesDetailed] = useState<Array<LaunchDetailed>>([]);
   const [launchesBrief, setLaunchesBrief] = useState<Array<LaunchBrief>>([]);
-  const [favoriteLaunchIds, setFavoriteLaunchIds] = useState<Array<string>>([]);
+  const [favoriteLaunchIds, setFavoriteLaunchIds] = useState<Array<string>>(JSON.parse(localStorage.getItem('favorites') as string) || []);
   const [selectedLaunchId, setSelectedLaunchId] = useState<String>('');
   const [listDisplayed, setListDisplayed] = useState<string>('all');
 
@@ -46,10 +46,11 @@ function App() {
     if (!favoriteLaunchIds.includes(id)) {
       const newFavoriteLaunchIds = [...favoriteLaunchIds, id];
       setFavoriteLaunchIds(newFavoriteLaunchIds);
-      // localStorage.setItem('favorites', JSON.stringify(newFavoriteLaunchIds));
+      localStorage.setItem('favorites', JSON.stringify(newFavoriteLaunchIds));
     } else {
-      setFavoriteLaunchIds(favoriteLaunchIds.filter((favoriteId: string) => favoriteId !== id));
-      // localStorage.setItem('favorites', JSON.stringify(newFavoriteLaunchIds));
+      const newFavoriteLaunchIds = favoriteLaunchIds.filter((favoriteId: string) => favoriteId !== id);
+      setFavoriteLaunchIds(newFavoriteLaunchIds);
+      localStorage.setItem('favorites', JSON.stringify(newFavoriteLaunchIds));
     }
   }
 
@@ -62,13 +63,11 @@ function App() {
         setListDisplayed={setListDisplayed}
         listDisplayed={listDisplayed}
         favorites={favoriteLaunchIds}
-        // favorites={JSON.parse(localStorage.getItem('favorites') as string)}
       />
       <LaunchDetails
         launch={launchesDetailed.find(launch => launch.id === localStorage.getItem('selectedLaunchId'))}
         handleFavoriteClick={handleFavoriteClick}
         isFavorite={favoriteLaunchIds.some(launchId => launchId === localStorage.getItem('selectedLaunchId'))}
-        // isFavorite={JSON.parse(localStorage.getItem('favorites') as string).includes(localStorage.getItem('selectedLaunchId') as string)}
       />
     </span>
   )
