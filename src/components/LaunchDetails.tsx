@@ -16,8 +16,11 @@ const LaunchDetails: FC<Props> = (props) => {
       props.launch?.fairings &&
       (
         props.launch?.fairings?.reused ||
-        props.launch?.fairings?.reused ||
+        props.launch?.fairings?.reused === false ||
+        props.launch?.fairings?.recovery_attempt ||
+        props.launch?.fairings?.recovery_attempt === false ||
         props.launch?.fairings?.recovered ||
+        props.launch?.fairings?.recovered === false ||
         props.launch?.fairings?.ships?.length > 0
       )
     )
@@ -26,10 +29,15 @@ const LaunchDetails: FC<Props> = (props) => {
   const coreHasAttributes: Function = (core: Core) => {
     return (
       core.gridfins ||
+      core.gridfins === false ||
       core.legs ||
+      core.legs === false ||
       core.reused ||
+      core.reused === false ||
       core.landing_attempt ||
-      core.landing_success === true ||
+      core.landing_attempt === false ||
+      core.landing_success ||
+      core.landing_success === false ||
       core.landing_type
     )
   }
@@ -77,9 +85,9 @@ const LaunchDetails: FC<Props> = (props) => {
           <li>
             {`Fairing: `}
             <ol>
-              {props.launch?.fairings?.reused && (<li>{`Reused: ${props.launch.fairings.reused}`}</li>)}
-              {props.launch?.fairings?.reused && (<li>{`Recovery Attempt: ${props.launch.fairings.reused}`}</li>)}
-              {props.launch?.fairings?.recovered && (<li>{`Recovered: ${props.launch.fairings.recovered}`}</li>)}
+              {(props.launch?.fairings?.reused || props.launch?.fairings?.reused === false) && (<li>{`Reused: ${props.launch.fairings.reused}`}</li>)}
+              {(props.launch?.fairings?.recovery_attempt || props.launch?.fairings?.reused === false) && (<li>{`Recovery Attempt: ${props.launch.fairings.recovery_attempt}`}</li>)}
+              {(props.launch?.fairings?.recovered || props.launch?.fairings?.recovered === false) && (<li>{`Recovered: ${props.launch.fairings.recovered}`}</li>)}
               {props.launch?.fairings?.ships && props.launch.fairings.ships.length > 0 && (
               <li>{`Ships:`}
                 <ol>
@@ -149,11 +157,11 @@ const LaunchDetails: FC<Props> = (props) => {
                 return (<li key={i as React.Key}>{core.core || i+1}
                 <ol>
                   {core.flight && (<li>{`Flight: ${core.flight}`}</li>)}
-                  {core.gridfins && (<li>{`Gridfins: ${core.gridfins}`}</li>)}
-                  {core.legs && (<li>{`Legs: ${core.legs}`}</li>)}
-                  {core.reused && (<li>{`Reused: ${core.reused}`}</li>)}
-                  {core.landing_attempt && (<li>{`Landing Attempt: ${core.landing_attempt}`}</li>)}
-                  {core.landing_success && (<li>{`Landing Success: ${core.landing_success}`}</li>)}
+                  {(core.gridfins || core.gridfins === false) && (<li>{`Gridfins: ${core.gridfins}`}</li>)}
+                  {(core.legs || core.legs === false) && (<li>{`Legs: ${core.legs}`}</li>)}
+                  {(core.reused || core.reused === false) && (<li>{`Reused: ${core.reused}`}</li>)}
+                  {(core.landing_attempt || core.landing_attempt === false) && (<li>{`Landing Attempt: ${core.landing_attempt}`}</li>)}
+                  {(core.landing_success || core.landing_success === false) && (<li>{`Landing Success: ${core.landing_success}`}</li>)}
                   {core.landing_type && (<li>{`Landing Type: ${core.landing_type}`}</li>)}
                 </ol>
                 </li>
