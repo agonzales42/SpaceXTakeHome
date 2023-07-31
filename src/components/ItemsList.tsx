@@ -28,7 +28,7 @@ const ItemsList: FC<Props> = props => {
                     launch={launch}
                     handleSelect={props.handleSelect}
                     isSelected={launch.id === props.selectedLaunchId}
-                    isFavorite={props.favorites.includes(launch.id as string)}
+                    isFavorite={props.favorites?.includes(launch.id as string)}
                 />
             ))}
         </ul>

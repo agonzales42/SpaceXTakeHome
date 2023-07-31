@@ -168,7 +168,7 @@ ul[class="launchDetailsUL"] {
   display: inline-flex;
   height: 30px;
   font-size: 14px;
-  background-color: #6d6d44;
+  background-color: #664;
 }
 
 .selected {
@@ -176,11 +176,12 @@ ul[class="launchDetailsUL"] {
 }
 
 .selectedFavorite {
-  background-color: #996 !important;
+  background-color: #aa7 !important;
 }
 
-.favorite:hover {
-  background-color: #663; 
+.favoriteSingleItem:hover {
+  background-color: #885; 
+  cursor: pointer;
 }
 
 .singleItem:hover {
