@@ -156,7 +156,7 @@ ul[class="launchDetailsUL"] {
   margin: 0 0 0 0;
   width: 100%;
   display: inline-flex;
-  height: 30px;
+  height: 24px;
   font-size: 14px;
 }
 
@@ -166,7 +166,7 @@ ul[class="launchDetailsUL"] {
   margin: 0 0 0 0;
   width: 100%;
   display: inline-flex;
-  height: 30px;
+  height: 24px;
   font-size: 14px;
   background-color: #664;
 }
