@@ -12,7 +12,7 @@ interface Props {
 const SingleItem: FC<Props> = (props) => {
 
     const [className, setClassName] = useState<string>('');
-
+      
     const formatDate: Function = ((date: Date) => {
         return date.toString().substring(0, 10);
     });
