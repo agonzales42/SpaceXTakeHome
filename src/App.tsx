@@ -8,16 +8,20 @@ function App() {
 
   const [launchesDetailed, setLaunchesDetailed] = useState<Array<LaunchDetailed>>([]);
   const [launchesBrief, setLaunchesBrief] = useState<Array<LaunchBrief>>([]);
-  // const [favoriteLaunches, setFavoriteLaunches] = useState<Array<String>>([]);
-  
+  const [favoriteLaunchIds, setFavoriteLaunchIds] = useState<Array<string>>([]);
   const [selectedLaunchId, setSelectedLaunchId] = useState<String>('');
+  const [listDisplayed, setListDisplayed] = useState<string>('all');
 
+  const handleSelect: Function = (launchId: string) => {
+      localStorage.setItem('selectedLaunchId', launchId);
+      setSelectedLaunchId(launchId);
+  }
+  
   const handleSelect: Function = (launchId: String) => {
       localStorage.setItem("selectedLaunchId", launchId as string);
       setSelectedLaunchId(launchId);
   }
   
-
   const getSpaceXResults = () => {
     fetch('https://api.spacexdata.com/v5/launches/')
       .then(response => response.json())
@@ -39,16 +43,37 @@ function App() {
     getSpaceXResults();
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favoriteLaunchIds));
+  }, [favoriteLaunchIds]);
+
+  const handleFavoriteClick: Function = (id: string) => {
+    if (!favoriteLaunchIds.includes(id)) {
+      const newFavoriteLaunchIds = [...favoriteLaunchIds, id];
+      setFavoriteLaunchIds(newFavoriteLaunchIds);
+      // localStorage.setItem('favorites', JSON.stringify(newFavoriteLaunchIds));
+    } else {
+      setFavoriteLaunchIds(favoriteLaunchIds.filter((favoriteId: string) => favoriteId !== id));
+      // localStorage.setItem('favorites', JSON.stringify(newFavoriteLaunchIds));
+    }
+  }
+
   return (
-    <span className="container">
+    <span className='container'>
       <ItemsList
-        launches={launchesBrief}
+        launches={listDisplayed === 'all' ? launchesBrief : launchesBrief.filter((launch: LaunchBrief) => JSON.parse(localStorage.getItem('favorites') as string)?.includes(launch.id))}
         handleSelect={handleSelect}
         selectedLaunchId={selectedLaunchId}
+        setListDisplayed={setListDisplayed}
+        listDisplayed={listDisplayed}
+        favorites={favoriteLaunchIds}
+        // favorites={JSON.parse(localStorage.getItem('favorites') as string)}
       />
       <LaunchDetails
-        launch={launchesDetailed.find(launch => launch.id === localStorage.getItem("selectedLaunchId"))}
-        isFavorite={false}
+        launch={launchesDetailed.find(launch => launch.id === localStorage.getItem('selectedLaunchId'))}
+        handleFavoriteClick={handleFavoriteClick}
+        isFavorite={favoriteLaunchIds.some(launchId => launchId === localStorage.getItem('selectedLaunchId'))}
+        // isFavorite={JSON.parse(localStorage.getItem('favorites') as string).includes(localStorage.getItem('selectedLaunchId') as string)}
       />
     </span>
   )
