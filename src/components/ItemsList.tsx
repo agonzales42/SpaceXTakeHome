@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import ItemsListHeader from './ItemListHeader.tsx';
 import SingleItem from './SingleItem.tsx';
 import { LaunchBrief } from '../types.ts';
 import '../App.css'
@@ -15,14 +16,13 @@ interface Props {
 const ItemsList: FC<Props> = props => { 
 
     return (
-        <div className="itemsList"><h1>Launches</h1>
-        <div className='listOptions'>
-            <div className='optionNull'> </div>
-            <div className={`option ${props.listDisplayed === 'all' && 'selected'}`} onClick={() => props.setListDisplayed('all')}>All</div>
-            <div className={`option ${props.listDisplayed === 'favorites' && 'selected'}`} onClick={() => props.setListDisplayed('favorites')}>Favorites</div>  
-        </div>
-        <ul className='itemsListUL'>
-            {props.launches.map(launch => (
+        <div className="itemsListContainer">
+            <ItemsListHeader
+                setListDisplayed={props.setListDisplayed}
+                listDisplayed={props.listDisplayed}    
+            />
+            <ul className='itemsListUL'>
+                {props.launches.map(launch => (
                 <SingleItem 
                     key={launch.id}
                     launch={launch}
@@ -31,7 +31,7 @@ const ItemsList: FC<Props> = props => {
                     isFavorite={props.favorites?.includes(launch.id as string)}
                 />
             ))}
-        </ul>
+            </ul>
         </div>
     );
 }

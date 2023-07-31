@@ -15,16 +15,25 @@ h1 {
   height: 60px;
 }
 
-.itemsList {
+.itemsListContainer {
   color: white;
   border: solid;
-  border-width: 1px 1px 1px 1px;
-  width: 660px;
-  height: 850px;
-  padding: 0 0 0 0;
+  border-width: 1px;
   flex: 1;
+  width: 660px;
+}
+
+.itemsListHeader {
+  position: static;
+  border-bottom: solid;
+}
+
+.itemsListUL {
+  border-width: 1px 1px 1px 1px;
+  height:650px;
+  padding: 0 0 0 0;
   margin: 0 0 0 0;
-  overflow: scroll;
+  overflow-y: scroll;
   overflow-x: hidden;
 }
 
