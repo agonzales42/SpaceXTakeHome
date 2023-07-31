@@ -59,7 +59,7 @@ function App() {
       <ItemsList
         launches={listDisplayed === 'all' ? launchesBrief : launchesBrief.filter((launch: LaunchBrief) => JSON.parse(localStorage.getItem('favorites') as string)?.includes(launch.id))}
         handleSelect={handleSelect}
-        selectedLaunchId={selectedLaunchId}
+        selectedLaunchId={selectedLaunchId as string}
         setListDisplayed={setListDisplayed}
         listDisplayed={listDisplayed}
         favorites={favoriteLaunchIds}
